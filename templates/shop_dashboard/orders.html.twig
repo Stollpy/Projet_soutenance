@@ -1,0 +1,61 @@
+{% extends 'shop_dashboard/base.html.twig'%}
+
+
+{% block fonctionalite %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-12">
+
+                    <table class="table caption-top table-hover shadow">
+                        <caption>Liste de vos nouvelles commandes</caption>
+                        <thead class="bg-mj-s text-white">
+                        <tr>
+                            <th>Commande</th>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Livraison</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in ordersLines %}
+                            <tr class="tr-hover">
+                                <td>{{ order.orders.id }}</td>
+                                <td>{{ order.product.name }}</td>
+                                <td>
+                                    {{ order.quantity }}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-primary btn-lg mj-button-container-shop dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Information de livraison
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>Address 1 : {{ order.orders.userId.addressLine1 }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Address 2 (facultatif) :{{ order.orders.userId.addressline2 }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Ville : {{ order.orders.userId.city }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Code postal : {{ order.orders.userId.zipcode }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Prénom : {{ order.orders.userId.firstname}}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Nom : {{ order.orders.userId.lastname }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>Numéro de tél : {{ order.orders.userId.phone }}</li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>E-mail : {{ order.orders.userId.email }}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

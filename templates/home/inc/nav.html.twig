@@ -1,0 +1,98 @@
+<!-- Navbar -->
+<header>
+    <nav class="navbar navbar-expand-md navbar-mj py-2 shadow fixed-top">
+        <div class="container-fluid">
+
+            <!-- logo -->
+            <a class="navbar-brand" href="{{ path('home.index') }}">
+                <img src="{{ asset('assets/img/mj-icons/logo-blanc.png') }}" height="48px" alt="logo marie jeanne">
+            </a>
+
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('home.index') }}">Accueil</a>
+                    </li>
+
+                </ul>
+
+
+                <ul class="navbar-nav">
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-shopping-cart fa-lg text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ path('cart.index') }}">Votre panier</a></li>
+                        </ul>
+                    </li>
+
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-user fa-lg text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('dashboard.index') }}" class="dropdown-item">Tableau de bord</a>
+                                </li>
+                            {% endif %}
+
+                            <li>
+                                <p class="mb-0 dropdown-item"><span class="badge bg-mj-s rounded-pill"><i class="fas fa-map-marker-alt"></i> {{ app.user.city }}</span></p>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') == false %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('user.shop') }}">Je souhaite creer ma boutique en ligne</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="{{ path('app_logout') }}" class="dropdown-item"><i class="fas fa-power-off"></i> Se
+                                    deconnecter</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('user.edit', {'id': app.user.id}) }}">Paramètres de compte</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+
+                    <li class="nav-item">
+                        <a href="{{ path('app_login') }}" class="nav-link">S'authentifier</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ path('user.index') }}" class="nav-link">Créer un compte</a>
+                    </li>
+                </ul>
+                {% endif %}
+
+                {% block actions %}
+                    <form action="" method="get" class="mx-md-3 mb-3 mb-md-0 ">
+                        <div class="input-group">
+                            <label for="search" class="sr-only">Recherche</label>
+                            <input type="text"
+                                   name="search"
+                                   id="search"
+                                   class="form-control"
+                                   placeholder="{% if context is defined %}{{ context }}{% endif %}">
+
+                            <button type="submit" class="btn btn-mj-secondary input-group-text">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+</header>

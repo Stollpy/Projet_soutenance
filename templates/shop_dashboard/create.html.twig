@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block nav %}
+    {% include 'shop_dashboard/inc/nav.dashboard.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center py-5">
+        <div class="col-md-8">
+            <a href="{{ path('dashboard.index') }}" class="btn btn-outline-mj-secondary mb-3">Retour au tableau de bord</a>
+            <fieldset>
+                <legend>Ajout de produit</legend>
+                <div class="mb-3">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                </div>
+                <input type="submit" value="Ajouter" class="btn btn-outline-mj-secondary">
+                {{ form_end(form) }}
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

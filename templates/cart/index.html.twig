@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container mt-5 pt-5">
+            <h2 class="text-capitalize">Votre panier</h2>
+            <div class="row mt-5">
+                <div class="col-12">
+                    {% if items | length > 0 %}
+                        <table class="table table-hover shadow">
+                            <thead>
+                                <tr class="mj-table bg-mj text-white">
+                                    <th scope="col">Produit</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col">Sous-Total</th>
+                                    <th scope="col">Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr class="tr-hover">
+                                        <th scope="row">{{ item.product.name }}</th>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>{{ item.product.price }} €</td>
+                                        <td>{{ item.product.price * item.quantity }} €</td>
+                                        <td>
+                                            <a href="{{ path('cart.remove', {'id': item.product.id}) }}" class="btn btn-outline-primary btn-small mj-button-container-shop">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr class="mj-table">
+                                <td colspan="3" >Livraison <span class="form-text">( par shop )</span> :</td>
+                                <td colspan="2">6 €</td>
+                            </tr>
+                            <tr class="mj-table">
+                                <td colspan="3" class="text-right">Total : </td>
+                                <td colspan="2">{{ total }} €</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="row">
+                            <div class="col-9 my-4 py-2">
+                                <a href="{{ path('home.index') }}" class="btn btn-outline-primary mj-button-container-shop">Continuer mon shopping</a>
+                            </div>
+                            <div class="col-3 text-end my-4 py-2">
+                                <a href="{{ path('order.index', {'id': app.user.id}) }}" class="btn btn-outline-primary mj-button-container-shop">Payer ma commande</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="alert alert-primary mj-alert">
+                            Votre panier est vide ! 😭
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

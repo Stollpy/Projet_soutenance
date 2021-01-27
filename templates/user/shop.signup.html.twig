@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Shop{% endblock %}
+
+{% block body %}
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap">
+                    <p class="fw-bold lead mj-title-bookmarks mb-3">Creation de compte boutique</p>
+                </div>
+                <div id="SIRET-Form">
+                    <fieldset>
+                        <legend>Commencons par verifier votre etablissement</legend>
+                        <label for="SIRET">Numero de SIRET de votre etablissement</label>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="SIRET" name="SIRET" aria-describedby="siret-help">
+                            <div id="siret-help" class="form-text">
+                                Veuillez saisir votre numero de SIRET (14 chiffres) sans espaces
+                            </div>
+                        </div>
+                        <p class="text-danger d-none" id="errorMsg">
+                            Oups ! Votre numero de SIRET n'a pas ete reconnu, etes vous sur d'avoir saisi le bon numero?
+                        </p>
+
+                    </fieldset>
+                    <button class="btn btn-outline-mj-secondary mb-5" id="send">
+                        Valider
+                    </button>
+                </div>
+
+                <div class="d-flex align-items-center d-none" id="spinner">
+                    <div class="spinner-border text-mj" role="status"></div>
+                    <p class="fw-bold lead text-mj-secondary ml-3">Nous verifions les informations saisies...</p>
+                </div>
+
+                <form method="post" id="API-data" class="d-none" enctype="multipart/form-data">
+                    <button class="btn btn-outline-mj-secondary mb-3" id="goBack">
+                        Retour a l'etape precedente
+                    </button>
+
+                    <fieldset>
+                        <label for="SIRET2">Numero de SIRET</label>
+                        <input type="text" class="form-control mb-3" id="SIRET2" name="SIRET2" readonly>
+
+                        <legend>Ces donnes sont-elles correctes?</legend>
+                        <p class="text-muted">Vous pouvez modifier en cas d'erreur</p>
+
+                        <label for="shopName">Denomination de l'etablissement</label>
+                        <input type="text" class="form-control mb-3" id="shopName" name="shopName" required>
+
+                        <label for="addressLine1">Numero et libelle de voie</label>
+                        <input type="text" class="form-control mb-3" id="addressLine1" name="addressLine1" required>
+
+                        <label for="city">Ville</label>
+                        <input type="text" class="form-control mb-3" id="city" name="city" required>
+
+                        <label for="zipcode">Code Postal</label>
+                        <input type="text" class="form-control mb-3" id="zipcode" name="zipcode" required>
+
+                        <button class="btn btn-outline-mj-secondary mb-5" id="continue">
+                            Continuer
+                        </button>
+                    </fieldset>
+
+                    <fieldset class="d-none" id="extra-data">
+                        <legend>Champs complementaires</legend>
+
+                        <label for="description">Ajoutez une description de votre boutique (optionnel)</label>
+                        <textarea class="form-control mb-3" id="description" name="description"></textarea>
+
+                        <div class="mb-3">
+                            <label for="imageFile" class="form-label">Photo banniere de votre boutique</label>
+                            <input class="form-control" type="file" name="imageFile" id="imageFile" required>
+                        </div>
+
+                        <p class="text-muted">
+                            En cliquant sur le bouton creer ma boutique vous certifiez que les informations
+                            renseignees ci dessus sont exactes et que vous etes le proprietaire, gestionnaire commercial
+                            ou personne autorisee a representer l'etablissement <span id="nameVerify"></span> situe <span id="addressVerify"></span>.
+                        </p>
+
+                        <input type="submit" class="btn btn-outline-mj-secondary" value="Creer ma boutique">
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Custom JS -->
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

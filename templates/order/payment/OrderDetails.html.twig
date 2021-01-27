@@ -1,0 +1,24 @@
+{% extends 'base.html.twig'%}
+
+{% block title %} Détails de commande {% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-center py-5">
+            <div class="col-12">
+                <button type="button" id="checkout-button" class="btn btn-outline-primary mj-button-container-shop">Payer maintenant</button>
+                <p class="fw-bold text-mj-secondary lead">Vous serez redirigé vers le portail de notre partenaire de paiement.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ asset('assets/js/paiement.js') }}"></script>
+{% endblock %}

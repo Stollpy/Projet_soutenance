@@ -1,0 +1,39 @@
+<div class="card border-light shadow-sm annimation-card" style="width: 100%;">
+    <a href="{{ path('shop.index', {'id': shop.id}) }}">
+        <img src="{% if shop.picture matches '/^https.*/' %}{{ shop.picture }}{% else %}uploads/shop/image/{{ shop.picture }}{% endif %}" class="card-img-top mj-img-top" alt="ShopImage">
+    </a>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-10">
+                <h5 class="card-title">{{ shop.name }}</h5>
+            </div>
+            <div class="col-2">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <!-- Bouton favoris à revoir -->
+                    {% if shop in app.user.bookmarks %}
+                        <a href="{{ path('user.addBookmarks', {'id': shop.id}) }}">
+                            <i class="far fa-heart mj-bookmark-icon d-none bookmark-button"></i>
+                        </a>
+                        <a href="{{ path('user.removeBookmarks', {'id': shop.id}) }}">
+                            <i class="fas fa-heart mj-bookmark-icon bookmark-button"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('user.addBookmarks', {'id': shop.id}) }}">
+                            <i class="far fa-heart mj-bookmark-icon bookmark-button"></i>
+                        </a>
+                        <a href="{{ path('user.removeBookmarks', {'id': shop.id}) }}">
+                            <i class="fas fa-heart mj-bookmark-icon d-none bookmark-button"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted">Frais de livraison : 2,40€</h6>
+        <p class="card-text mj-card-text">
+        {{ shop.description }}
+        </p>
+        <p class="mj-title-bookmarks">
+            <i class="fas fa-map-marker-alt"></i> {{ shop.user.city }}
+        </p>
+    </div>
+</div>

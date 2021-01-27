@@ -1,0 +1,44 @@
+{% extends 'user/dashboard/base.html.twig' %}
+
+{% block fonctionalite %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table caption-top table-hover shadow">
+                        <caption>Liste de vos commandes</caption>
+                        <thead class="bg-mj text-white">
+                        <tr class="text-center">
+                            <th>Commande</th>
+                            <th>Détails commande</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
+                            <tr class="tr-hover text-center">
+                                <td>N°{{ order.id }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-primary btn-lg mj-button-container-shop dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Information de commande
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                           {% for orderLine in order.orderLines %}
+                                               <li class="p-2 pl-5 pr-5">{{ orderLine.product.name }} x{{ orderLine.quantity }} - {{ orderLine.shop.name }}</li>
+                                               <li><hr class="dropdown-divider"></li>
+                                           {% endfor %}
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>{{ order.total }} €</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig'%}
+{% block nav %}
+    {% include 'shop_dashboard/inc/nav.dashboard.html.twig' %}
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand navbar-light">
+                        <div class="container-fluid">
+                            <div class="navbar-nav">
+                                <a class="nav-link active text-mj-secondary shadow-sm" aria-current="page" href="{{ path('dashboard.index') }}">Inventaire</a>
+                                <a class="nav-link text-mj-secondary shadow-sm" href="{{ path('dashboard.listing-order', {'id': app.user.id}) }}">Mes nouvelles commandes</a>
+                                <a class="nav-link text-mj-secondary shadow-sm" href="#">Mes commandes en préparation</a>
+                                <a class="nav-link text-mj-secondary shadow-sm" href="#">Mes commandes envoyer</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block fonctionalite %}{% endblock %}
+{% endblock %}

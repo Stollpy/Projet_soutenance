@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+
+
+
+{% block body %}
+    <div class="shadow mt-1 pt-1">
+        <div class=" container py-3 px-1 px-md-3 px-lg-0">
+
+            {% if session_id is defined %}
+                <div class="alert alert-success mj-alert" role="alert">
+                    Votre commande à bien été prise en compte {{ firstName }} !
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success mj-alert" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            <p class="mj-title-bookmarks lead fw-bold mt-3 pt-3">
+                VOS FAVORIS
+            </p>
+
+            <section class="mj-carousel-bookmark">
+                <div class="mj-carousel-items">
+                    {% include 'home/inc/cardBookmarks.html.twig' %}
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="container">
+
+        {% if recommendations is defined and recommendations is not empty %}
+
+            <p class="mj-title-bookmarks lead fw-bold mt-5">
+                RECOMMANDE POUR VOUS
+            </p>
+
+            <div class="mj-grid-container mb-3">
+
+                {% for product in recommendations %}
+
+                    {{ include('home/inc/cardRecommandation.html.twig') }}
+
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+        <p class="mj-title-bookmarks lead fw-bold my-5">
+            BOUTIQUES A LA UNE
+        </p>
+
+        <div class="mj-grid-container mb-3">
+            <!-- TODO: affichage de catalogue ou "ListView"
+                Idees: Si session utilisateur, afficher que les produits et
+                boutiques de la ville de l'utilisateur (accessible via user.city)
+                autrement, tout afficher par ordre d'ajout
+            -->
+            {% for shop in shops %}
+                {{ include('home/inc/cardShop.html.twig') }}
+            {% endfor %}
+
+            <div id="DisplayShop">
+
+            </div>
+
+        </div>
+        <div class="d-grid gap-2 col-2 mx-auto">
+            <a href="#" class="btn btn-outline-success rounded-pill mj-button-container-shop my-3  px-0 shadow-sm"
+               id="LoadMore">
+                Voir plus
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Custom JS -->
+    <script src=""{{ asset('assets/js/ActionBookmarks.js') }}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
+            integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/HomeShopDisplay.js') }}"></script>
+    <script src="{{ asset('assets/js/counter.js') }}"></script>
+{% endblock %}

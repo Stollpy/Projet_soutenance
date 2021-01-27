@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block body %}
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap">
+                    <p class="fw-bold lead mj-title-bookmarks mb-3">Creation de compte utilisateur</p>
+                </div>
+                <div class="mb-3">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                </div>
+                <input type="submit" value="Créer un compte" class="btn btn-outline-mj-secondary">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

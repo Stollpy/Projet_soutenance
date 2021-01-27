@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information de commande!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row mt-3 text-center">
+                        <div class="col-12">
+                            <h2 class="text-capitalize">Information de commande</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <input type="submit" class="btn btn-outline-primary mj-button-container-shop mt-3" value="Passer à l'étape suivante">
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

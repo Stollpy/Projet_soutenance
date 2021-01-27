@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row mt-5 mb-2">
+            <div class="col-12">
+                <nav class="navbar navbar-expand navbar-light">
+                    <div class="container-fluid">
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a class=" btn btn-outline-dark btn-outline-primary mj-button-container-shop shadow" aria-current="page" href="{{ path('user.edit', {'id': app.user.id}) }}">Modifier mon profil</a>
+                            <a  class="btn btn-outline-dark btn-outline-primary mj-button-container-shop shadow" href="{{ path('user.order_listing', {'id': app.user.id}) }}">Mes commandes</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <h1 class="fw-bolder my-3">Paramètres de compte</h1>
+        </div>
+    </div>
+</div>
+    {% block fonctionalite %}
+    {% endblock %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

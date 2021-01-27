@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}  - {{ shop.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="shadow-sm">
+        <div class="container">
+            <article class="py-5 px-md-3 px-lg-0">
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success mj-alert" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                <h1 class="fw-bold px-3 px-md-0">{{ shop.name }} - {{ shop.user.city }}</h1>
+                <img src="{{ shop.picture }}" alt="Photo du shop {{ shop.name }}"
+                     class="w-100 shop-image rounded shadow">
+                <h5 class="mj-title-bookmarks mt-4">Informations sur l’établissement : </h5>
+                <p>{{ shop.description }}</p>
+                <p class="mj-title-bookmarks">
+                    <i class="fas fa-map-marker-alt"></i> {{ shop.user.city }}
+                </p>
+                <p class="text-muted">Frais de livraison : 6 €</p>
+            </article>
+        </div>
+    </div>
+    <div class="shadow-sm">
+
+        <div class="container">
+
+            <h3 class="mj-title-bookmarks my-4">Filtrer par catégorie</h3>
+
+            <div class="category-container my-5">
+                {% for category in categories %}
+
+                    <div class="annimation-category text-center">
+                        <a href="{{ path('shop.index', {'id': shop.id}) }}?filter={{ category.label }}" class="text-decoration-none">
+                            <img src="{{ asset('assets/img/mj-icons/') ~ category.glyph }}"
+                                 alt="{{ category.label }}" class="mj-icon">
+                            <p class="text-capitalize annimation-category-t">{{ category.label }}</p>
+                        </a>
+                    </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    <div class="container my-5">
+
+
+        <p class="lead fw-bold mj-title-bookmarks">
+            Produits à la une
+        </p>
+        <section class="mj-grid-container ">
+            {% for product in products %}
+
+
+                <div class="card border-light annimation-card shadow-sm">
+                    <!-- Bouton favoris à revoir -->
+                    <img src="{% if product.photo matches '/^https.*/' %}{{ product.photo }}{% else %}/uploads/product/image/{{ product.photo }}{% endif %}"
+                         class="card-img-top mj-img-top" alt="ShopImage">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                            </div>
+                            <div class="col-2">
+                                <a href="#">
+                                    <i class="far fa-heart mj-bookmark-icon "></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p>
+                            <span class="badge rounded-pill bg-dark navbar-mj-secondary badge-hover shadow mb-0">
+                                {% if product.label is defined %}
+                                    {{ product.label }}
+                                {% else %}
+                                    {{ product.category.label }}
+                                {% endif %}
+                            </span>
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="card-title mj-title-bookmarks mb-0">
+                                {{ product.price }} €
+                            </h5>
+                            <h6 class="text-muted mb-0">{% if product.measured %}le gramme{% else %}l'unite{% endif %}</h6>
+                        </div>
+                        <p class="card-text mj-card-text">
+                            {{ product.description }}
+                        </p>
+                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                            <div class="d-flex justify-content-between">
+                                <button class="btnMoin shadow" type="button" data-id="{{ product.id }}">
+                                    <i class="fas fa-minus mj-button-plusMinus"></i>
+                                </button>
+                                <p class="counters text-mj-secondary m-0 p-0" id="Quantity_{{ product.id }}">1</p>
+                                <button class="btnPlus shadow" type="button" data-id="{{ product.id }}">
+                                    <i class="fas fa-plus mj-button-plusMinus"></i>
+                                </button>
+                            </div>
+                            <div class="d-grid mx-auto my-3 px-0">
+                                <a href="{{ path('cart.add', {'id': product.id}) }}?quantity=1" class="btn btn-outline-success rounded-pill mj-button-container-shop shadow" id="Cart_{{ product.id }}">
+                                    Ajouter au panier
+                                </a>
+                            </div>
+                            <div class="text-center d-flex flex-column">
+                                {% if rated is defined and product.id in rated %}
+                                    <p class="text-muted">vous avez deja note ce produit</p>
+                                {% else %}
+                                    <p class="text-muted d-none" id="thxMsg_{{ product.id }}">Merci de votre avis!</p>
+                                    <div id="ratingdiv_{{ product.id }}">
+                                        <label for="ratingSelect">Donnez une note sur 5 <i class="fas fa-star"></i></label>
+                                        <div class="input-group">
+
+                                            <select class="form-select" id="ratingSelect_{{ product.id }}" name="ratingSelect">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+
+                                            <button class="btn btn-outline-mj-secondary input-group-text" id="rate" data-product-id="{{ product.id }}">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </section>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <!-- Custom JS -->
+    <script src="{{ asset('assets/js/counter.js') }}"></script>
+    <script src="{{ asset('assets/js/ratings.js') }}"></script>
+{% endblock %}
+
+
